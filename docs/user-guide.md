@@ -70,6 +70,20 @@
 - `e`dit cell contents
     - Edits made to a joined sheet are by design automatically reflected back to the source sheets.
 
+# Push new sheets
+command('X', 'vd.push(SheetDict("lastInputs", vd.lastInputs))', 'push last inputs sheet')
+
+command(',', 'select(gatherBy(lambda r,c=cursorCol,v=cursorValue: c.getValue(r) == v), progress=False)', 'select rows matching by this column')
+command('g,', 'select(gatherBy(lambda r,v=cursorRow: r == v), progress=False)', 'select all rows that match this row')
+
+command('"', 'vd.push(sheet.copy("_selected")).rows = list(sheet.selectedRows); sheet._selectedRows.clear()', 'push duplicate sheet with only selected rows')
+command('g"', 'vd.push(sheet.copy())', 'push duplicate sheet')
+command('P', 'vd.push(copy("_sample")).rows = random.sample(rows, int(input("random population size: ")))', 'push duplicate sheet with a random sample of <N> rows')
+command('V', 'vd.push(TextSheet("%s[%s].%s" % (name, cursorRowIndex, cursorCol.name), cursorValue))', 'view readonly contents of this cell in a new sheet')
+
+command('`', 'vd.push(source if isinstance(source, Sheet) else None)', 'push source sheet')
+
+
 # Special Sheets
 
 - `F`requency table for current column with histogram
